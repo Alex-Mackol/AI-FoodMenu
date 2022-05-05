@@ -1,4 +1,10 @@
 using System.Text;
+using Newtonsoft.Json;
+
+class Pet
+{
+    public string[] data;
+}
 
 namespace FoodMenu
 {
@@ -23,17 +29,25 @@ namespace FoodMenu
         }
         private void btnNext_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(typeMan.ToString()) || string.IsNullOrEmpty(typeMeal.ToString()))
+            string result = PythonInteractor.ReadPythonFile("{}");
+
+            var s = JsonConvert.DeserializeObject<Pet>(result);
+            
+            if (s is not null)
             {
-                MessageBox.Show("Оберіть дані у двох колонках!", "Помилка!");
+                label1.Text = string.Join(",", s.data);
             }
-            else
-            {
-                Form itemsForm = new ItemsForm();
-                itemsForm.Owner = this;
-                itemsForm.Show();
-                this.Hide();
-            }
+            // if(string.IsNullOrEmpty(typeMan.ToString()) || string.IsNullOrEmpty(typeMeal.ToString()))
+            // {
+            //     MessageBox.Show("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!", "пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!");
+            // }
+            // else
+            // {
+            //     Form itemsForm = new ItemsForm();
+            //     itemsForm.Owner = this;
+            //     itemsForm.Show();
+            //     this.Hide();
+            // }
         }
 
         private void radBtnMeat_CheckedChanged(object sender, EventArgs e)
