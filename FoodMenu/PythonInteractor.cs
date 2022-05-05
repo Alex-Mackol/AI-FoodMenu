@@ -21,7 +21,7 @@ namespace FoodMenu
             using (Process process = Process.Start(start))
             {
                 StreamWriter writer = process.StandardInput;
-                writer.WriteLine("{}");
+                writer.WriteLine(data);
                 using (StreamReader reader = process.StandardOutput)
                 {
                     string result = reader.ReadLine();
